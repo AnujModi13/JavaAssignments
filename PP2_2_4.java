@@ -7,51 +7,114 @@ program that creates objects of Account, SavingsAccount, and CheckingAccount and
 
 */
 
-public class PP2_2_4 {
+import java.util.Scanner;
+
+public class PP2_2_2 {
     public static void main(String[] args) {
-        SavingAccount savings = new SavingAccount(15, 1500);
-        CheckingAccount checking = new CheckingAccount(14, 1500);
+        Scanner sc= new Scanner(System.in);
+        Account c=new Account();
+        Account b=new Account(2145,700);
+        System.out.println("Enter the Id no");
+        int ID=sc.nextInt();
+        b.setId(ID);
+        System.out.println("Enter the Balance of Account");
+        double Balance=sc.nextDouble();
+        b.setBal(Balance);
+        System.out.println("Enter Interest Rate of Bank");
+        double Rate=sc.nextDouble();
+        b.setItr(Rate);
+        System.out.println("Enter the Date of Creation of Account ");
+        String Date1=sc.next();
+        /*System.out.println("Enter 1 to know monthly rate of interset\n" +
+                "Enter 2 to Know Amount added as interset\n" +
+                "Enter 3 to Withdraw Money\n" +
+                "Enter 4 to Deposite Money\n" +
+                "Enter 5 to View Account Balance\n");
+        int k=sc.nextInt();
 
-        System.out.println(savings.getBalance());
-        System.out.println(checking.getBalance());
-
-        savings.withdraw(2000);
-        checking.checking(3000);
-
-        System.out.println(savings.getBalance());
-        System.out.println(checking.getBalance());
+        if(k==1)
+        System.out.println("Monthly Interset Rate is :"+b.getMonthlyInterestRate());
+         else if(k==2)
+        System.out.println("Monthly Interset Deposited is :"+b.getMonthlyInterest());
+        else if(k==3){
+    System.out.println("Enter the amount to be withdraw");
+    double with=sc.nextDouble();
+    b.withdraw(with);
+    System.out.println("Your current Balance is "+b.getBal());
+        }
+        else if(k==4)
+        {
+            System.out.println("Enter the amount to be Deposited");
+            double dep=sc.nextDouble();
+            b.deposit(dep);
+            System.out.println("Your current Balance is "+b.getBal());
+        }
+        else if(k==5)
+        {
+            System.out.println("The Amount of Balance is "+b.getBal());
+        }*/
     }
-}
-public class SavingAccount extends Account{
-    double overdraftLimit = 0;
-
-    public SavingAccount(int newId, double newBalance) {
-        super(newId, newBalance);
     }
 
-    public void withdraw (double w) {
-        double balance = getBalance();
-        if (balance - w < overdraftLimit)
-            System.out.println("Insufficient Funds");
-        else
-            balance = balance - w;
-    }
-}
-public class CheckingAccount extends Account {
-    double overDraft = -1000;
-
-    public CheckingAccount(int newId, double newBalance) {
-        super(newId, newBalance);
+class Account
+{
+    private int id=0;
+    private double bal=500;
+    private double itr=7;
+    private String date;
+    double rate;
+    public Account() {
     }
 
-    public void checking(double i) {
+    public Account(int id, double bal) {
+        this.id = id;
+        this.bal = bal;
+    }
 
-        double balance = getBalance();
-        if (balance - i < overDraft){
-            System.out.println("Failure: Can't overdraft more than            Rs1,000. A 50 ruppes +"
-                    + "overdraft fee will be issued to your account. ");
-            balance = balance - 50; }
-        else
-            balance = balance - i;
+    public int getId() {
+        return id;
+    }
+
+    public double getBal() {
+        return bal;
+    }
+
+    public double getItr() {
+        return itr;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setBal(double bal) {
+        this.bal = bal;
+    }
+
+    public void setItr(double itr) {
+        this.itr = itr;
+    }
+
+    public String getDate() {
+        return date;
+    }
+    public double getMonthlyInterestRate()
+    {
+         rate=itr/12;
+        return rate;
+    }
+    public double getMonthlyInterest()
+    {getMonthlyInterestRate();
+        double interest=rate*bal/100;
+        return interest;
+    }
+    public void withdraw(double with)
+    {
+        bal-=with;
+    }
+    public double deposit(double dep)
+    {
+        bal+=dep;
+        return bal;
     }
 }
